@@ -7,6 +7,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { ListadoUsuariosComponent } from './components/listado-usuarios/listado-usuarios.component';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { FormularioComponent } from './components/formulario/formulario.component';
+import { C404Component } from './components/c404/c404.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { FormularioComponent } from './components/formulario/formulario.componen
     HeaderComponent,
     ListadoUsuariosComponent,
     UsuarioComponent,
-    FormularioComponent
+    FormularioComponent,
+    C404Component
   ],
   imports: [
     BrowserModule,

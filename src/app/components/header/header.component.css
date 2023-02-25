@@ -1,0 +1,22 @@
+.header {
+    background-color: limegreen;
+}
+
+.wrapper-menu {
+    height: 90px;
+}
+
+.logo svg {
+    height: 70px;
+}
+
+.nav-link {
+    color: #fff;
+    font-weight: 500;
+    font-size: 1.1rem
+}
+
+.active {
+    color: #000;
+    font-weight: 700;
+}

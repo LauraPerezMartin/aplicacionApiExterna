@@ -1,0 +1,57 @@
+.card {
+    text-align: center;
+    padding: 10px;
+    min-height: 470px;
+}
+
+.card img {
+    margin: 0 auto;
+    max-height: 300px;
+    max-width: 300px;
+    border-radius: 50%;
+}
+
+.iconos {
+    height: 1.2rem;
+    margin-left: 5px;
+}
+
+a {
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+.textoIcono {
+    font-size: 12px;
+    display: block;
+}
+
+.card-link {
+    width: 28%;
+    display: inline-block;
+}
+.btn-toolbar {
+    justify-content: center;
+}
+.btn-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: limegreen;
+    --bs-btn-border-color: limegreen;
+    --bs-btn-hover-color: limegreen;
+    --bs-btn-hover-bg: #fff;
+    --bs-btn-hover-border-color: limegreen;
+    --bs-btn-focus-shadow-rgb: 49,132,253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: limegreen;
+    --bs-btn-active-border-color: limegreen;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: limegreen;
+    --bs-btn-disabled-border-color: limegreen
+}
+.btn-secondary {
+    --bs-btn-hover-color: #6c757d;
+    --bs-btn-hover-bg: #fff;
+    --bs-btn-hover-border-color: #6c757d;
+}

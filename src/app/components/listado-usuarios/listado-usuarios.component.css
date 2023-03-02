@@ -11,15 +11,14 @@
     border-radius: 50%;
 }
 
-.iconos {
-    height: 1.2rem;
-    margin-left: 5px;
-}
-
 a {
     text-decoration: none;
     text-align: center;
     cursor: pointer;
+    color: limegreen;
+}
+a: hover {
+    color: green;
 }
 
 .textoIcono {

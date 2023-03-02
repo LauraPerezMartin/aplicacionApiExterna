@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Usuario } from 'src/app/interfaces/usuario.interface';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-formulario',
@@ -76,17 +77,35 @@ export class FormularioComponent implements OnInit {
       let nuevoUsuario: Usuario = this.formUsuario.value;
       let guardado: boolean = this.usuariosService.postUser(nuevoUsuario);
       if (guardado) {
+        Swal.fire(
+          'Usuario Creado',
+          'El usuario se ha creado correctamente',
+          'success'
+        )
         alert('El usuario se ha creado correctamente')
       } else {
-        alert('El usuario no se ha creado, intentalo de nuevo')
+        Swal.fire(
+          'Error',
+          'El usuario no se ha creado, intentalo de nuevo',
+          'error'
+        )
+
       }
     } else {
       let datosUsuario: Usuario = this.formUsuario.value;
       let guardado: boolean = this.usuariosService.putUser(datosUsuario);
       if (guardado) {
-        alert('El usuario se ha modificado correctamente')
+        Swal.fire(
+          'Guardado',
+          'El usuario se ha modificado correctamente',
+          'success'
+        )
       } else {
-        alert('El usuario no se ha modificado, intentalo de nuevo')
+        Swal.fire(
+          'Error',
+          'El usuario no se ha modificado, intentalo de nuevo',
+          'error'
+        )
       }
     }
 

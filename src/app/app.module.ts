@@ -8,6 +8,7 @@ import { ListadoUsuariosComponent } from './components/listado-usuarios/listado-
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { FormularioComponent } from './components/formulario/formulario.component';
 import { C404Component } from './components/c404/c404.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { C404Component } from './components/c404/c404.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,43 +2,29 @@
   <section class="row mt-5 mb-5 g-4">
     <article *ngFor="let usuario of arrUsers" class="col-12 col-md-6 col-xl-3">
       <div class="card">
-        <img [src]="usuario.image" class="card-img-top" [alt]="usuario.first_name+' '+usuario.last_name">
+        <img [src]="usuario?.image" class="card-img-top" [alt]="usuario?.first_name+' '+usuario?.last_name">
         <div class="card-body">
-          <h5 class="card-title align-center">{{usuario.first_name +' '+usuario.last_name}}</h5>
+          <h4 class="card-title align-center">{{usuario?.first_name +' '+usuario?.last_name}}</h4>
         </div>
         <div class="card-body">
-          <a [routerLink]="['/usuario', usuario.id]" class="card-link"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-          </svg><span class="textoIcono">Detalles</span></a>
-          <a [routerLink]="['/modificar-usuario/', usuario.id]" class="card-link"><svg
-              xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-repeat"
-              viewBox="0 0 16 16">
-              <path
-                d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z" />
-              <path fill-rule="evenodd"
-                d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z" />
-            </svg>
-            <span class="textoIcono">Actualizar</span></a>
-          <a (click)="borrarUsuario(usuario.id)" class="card-link"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-              fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-              <path
-                d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-              <path fill-rule="evenodd"
-                d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-            </svg><span class="textoIcono">Borrar</span>
-          </a>
+          <a [routerLink]="['/usuario', usuario?._id]" class="card-link"><i
+              class="fa-solid fa-magnifying-glass"></i><span class="textoIcono">Detalles</span></a>
+          <a [routerLink]="['/modificar-usuario/', usuario?._id]" class="card-link"><i
+              class="fa-solid fa-arrows-rotate"></i><span class="textoIcono">Actualizar</span></a>
+          <a (click)="borrarUsuario(usuario._id)" class="card-link"><i class="fa-regular fa-trash-can"></i><span
+              class="textoIcono">Borrar</span></a>
         </div>
       </div>
     </article>
     <div class="btn-toolbar m-5" role="toolbar" aria-label="Toolbar with button groups">
       <div class="btn-group me-2" role="group" aria-label="First group">
-        <button type="button" class="btn btn-secondary">Anterior</button>
+        <button type="button" class="btn btn-secondary" (click)="cargarPagListado(pagActual-1)" [disabled]="pagActual===1">Anterior</button>
       </div>
       <div class="btn-group me-2" role="group" aria-label="Secord group">
-        <button type="button" class="btn btn-primary">{{pag}}</button>
+        <button type="button" class="btn btn-primary">{{pagActual}}</button>
       </div>
       <div class="btn-group" role="group" aria-label="Third group">
-        <button type="button" class="btn btn-secondary">Siguiente</button>
+        <button type="button" class="btn btn-secondary" (click)="cargarPagListado(pagActual+1)" [disabled]="pagActual===totalPags">Siguiente</button>
       </div>
     </div>
   </section>

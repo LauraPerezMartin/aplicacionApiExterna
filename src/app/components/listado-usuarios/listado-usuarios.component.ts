@@ -9,17 +9,29 @@ import Swal from 'sweetalert2';
   styleUrls: ['./listado-usuarios.component.css']
 })
 export class ListadoUsuariosComponent implements OnInit {
-  arrUsers: Usuario[] | any;
-  pag: number = 1;
+
+  arrUsers!: Usuario[] | any;
+  pagActual: number = 1;
+  totalPags: number | any;
 
   constructor(private usuariosService: UsuariosService) { }
 
-  ngOnInit(): void {
-    this.arrUsers = this.usuariosService.getAllUsers();
+  async cargarPagListado(numPag: number = 1): Promise<void> {
+    try {
+      let response = await this.usuariosService.getAllUsers(numPag);
+      this.arrUsers = response.results;
+      this.pagActual = numPag;
+      this.totalPags = response.total_pages;
+    } catch (error) {
+      Swal.fire('Error', 'Error al conectarse con la base de datos', 'error')
+    }
   }
 
-  borrarUsuario(iduser: number): void {
-    let borrado: boolean;
+  ngOnInit(): void {
+    this.cargarPagListado();
+  }
+
+  borrarUsuario(iduser: string): void {
     Swal.fire({
       title: '¿Quieres borrar el usuario?',
       text: 'No podrá volver a recuperarse la información!',
@@ -27,29 +39,19 @@ export class ListadoUsuariosComponent implements OnInit {
       showCancelButton: true,
       confirmButtonText: 'Si, borrarlo',
       cancelButtonText: 'No'
-    }).then((result) => {
+    }).then(async (result): Promise<void> => {
       if (result.value) {
-        borrado = this.usuariosService.deleteUser(iduser);
-        if (borrado) {
-          Swal.fire(
-            'Borrado!',
-            'Se ha borrado el usuario.',
-            'success'
-          )
-        } else {
-          Swal.fire(
-            'Error',
-            'No se ha borrado la información, vuelva a intentarlo',
-            'error'
-          )
+        try {
+          let response = await this.usuariosService.deleteUser(iduser);
+          if (response._id) {
+            Swal.fire('Borrado!', 'Se ha borrado el usuario.', 'success')
+          }
+          this.cargarPagListado(this.pagActual);
+        } catch (error) {
+          Swal.fire('Error', 'Error al conectar con la base de datos', 'error')
         }
-
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire(
-          'Cancelado',
-          'No se ha borrado la información',
-          'error'
-        )
+        Swal.fire('Cancelado', 'No se ha borrado la información', 'error')
       }
     })
   }

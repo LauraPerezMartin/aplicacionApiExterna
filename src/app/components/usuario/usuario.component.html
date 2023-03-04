@@ -1,20 +1,19 @@
 <div class="container m-5">
     <div class="row align-items-center g-5">
         <div class="col-12 col-md-5 user-image">
-            <img class="img-fluid" [src]="usuario.image" />
+            <img class="img-fluid" [src]="usuario?.image" />
         </div>
         <div class="col-12 col-md-7">
-            <h2>{{usuario.first_name}}</h2>
-            <h2>{{usuario.last_name}}</h2>
-            <p><span class="bold">Nombre de usuario:</span> {{usuario.username}}</p>
-            <p><span class="bold">Email:</span> {{usuario.email}}</p>
+            <h2>{{usuario?.first_name}}</h2>
+            <h2 class="mb-4">{{usuario?.last_name}}</h2>
+            <p><span class="bold">Nombre de usuario:</span> {{usuario?.username}}</p>
+            <p><span class="bold">Email:</span> {{usuario?.email}}</p>
             <div class="btn-group my-4" role="group" aria-label="Basic outlined example">
                 <button type="button" class="btn btn-outline-primary"
-                    (click)="borrarUsuario(usuario.id)">Eliminar</button>
+                    (click)="borrarUsuario(usuario?._id)">Eliminar</button>
                 <button type="button" class="btn btn-outline-primary"
-                    [routerLink]="['/modificar-usuario', 1]">Actualizar</button>
-                <button type="button" class="btn btn-outline-primary" [routerLink]="['/home']">Volver al
-                    listado</button>
+                    [routerLink]="['/modificar-usuario', usuario?._id]">Actualizar</button>
+                <button type="button" class="btn btn-outline-primary" [routerLink]="['/home']">Volver al listado</button>
             </div>
         </div>
     </div>

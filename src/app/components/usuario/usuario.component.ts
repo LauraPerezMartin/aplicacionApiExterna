@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from 'src/app/interfaces/usuario.interface';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import Swal from 'sweetalert2';
@@ -11,23 +11,26 @@ import Swal from 'sweetalert2';
 })
 export class UsuarioComponent implements OnInit {
 
-  usuario: Usuario | any;
+  usuario!: Usuario | any;
 
   constructor(
     private usuariosService: UsuariosService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((params: any) => {
-      let iduser: number = parseInt(params.iduser);
-      //let idnumber: number = parseInt(iduser);
-      this.usuario = this.usuariosService.getUserById(iduser);
+    this.activatedRoute.params.subscribe(async (params: any): Promise<void> => {
+      let iduser: string = params.iduser;
+      try {
+        this.usuario = await this.usuariosService.getUserById(iduser);
+      } catch (error) {
+        Swal.fire('Error', 'Error al conectarse con la base de datos', 'error')
+      }
     })
   }
 
-  borrarUsuario(iduser: number): void {
-    let borrado: boolean;
+  borrarUsuario(iduser: string): void {
     Swal.fire({
       title: '¿Quieres borrar el usuario?',
       text: 'No podrá volver a recuperarse la información!',
@@ -35,31 +38,22 @@ export class UsuarioComponent implements OnInit {
       showCancelButton: true,
       confirmButtonText: 'Si, borrarlo',
       cancelButtonText: 'No'
-    }).then((result) => {
+    }).then(async (result): Promise<void> => {
       if (result.value) {
-        borrado = this.usuariosService.deleteUser(iduser);
-        if (borrado) {
-          Swal.fire(
-            'Borrado!',
-            'Se ha borrado el usuario.',
-            'success'
-          )
-        } else {
-          Swal.fire(
-            'Error',
-            'No se ha borrado la información, vuelva a intentarlo',
-            'error'
-          )
+        try {
+          let response = await this.usuariosService.deleteUser(iduser);
+          if (response._id) {
+            Swal.fire('Borrado!', 'Se ha borrado el usuario.', 'success')
+              .then((result) => {
+                this.router.navigate(['/home'])
+              })
+          }
+        } catch (error) {
+          Swal.fire('Error', 'Error al conectar con la base de datos', 'error')
         }
-
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire(
-          'Cancelado',
-          'No se ha borrado la información',
-          'error'
-        )
+        Swal.fire('Cancelado', 'No se ha borrado la información', 'error')
       }
     })
   }
-
 }

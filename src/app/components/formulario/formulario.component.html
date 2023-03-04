@@ -1,5 +1,6 @@
 <div class="container m-5">
-  <form novalidate class="formulario row g-3 p-3" [formGroup]="formUsuario" (ngSubmit)="dataNuevoUsuario()">
+  <h1 class="text-center">{{accion}} usuario</h1>
+  <form novalidate class="formulario row g-3 p-3 mt-3" [formGroup]="formUsuario" (ngSubmit)="dataUsuario()">
     <div class="col-12 col-md-6">
       <label for="first_name" class="form-label">Nombre*</label>
       <input type="text" class="form-control" id="first_name" formControlName="first_name">
